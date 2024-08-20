@@ -1,10 +1,24 @@
 services:
-  nginx:
-    image: nginx:latest
+  # nginx:
+  #   image: nginx:latest
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - ./nginx/service.conf:/etc/nginx/conf.d/default.conf
+  #   networks:
+  #     - gateway
+  #   depends_on:
+  #     - auth-api
+  #     - example-api
+
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - ./nginx/service.conf:/etc/nginx/conf.d/default.conf
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
     networks:
       - gateway
     depends_on:
