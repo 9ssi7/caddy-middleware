@@ -17,6 +17,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "2019:2019"
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./caddy/ssl.key:/etc/caddy/certs/ssl.key
@@ -26,6 +27,18 @@ services:
     depends_on:
       - auth-api
       - example-api
+
+  prometheus:
+    image: prom/prometheus:latest
+    restart: always
+    volumes:
+      - ./observer/prometheus.yaml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - gateway
+    depends_on:
+      - caddy
 
   auth-api:
     build:

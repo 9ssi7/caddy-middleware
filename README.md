@@ -27,3 +27,13 @@ curl -k https://localhost -H "Authorization: Bearer token" # Should return 200
 curl http://localhost # Should return forbidden
 curl http://localhost -H "Authorization: Bearer token" # Should return 200
 ```
+
+# How to observe
+
+```bash
+# for caddy metrics
+curl http://localhost:2019/metrics
+
+# for prometheus metrics
+open http://localhost:9090
+```

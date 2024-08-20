@@ -1,3 +1,10 @@
+{
+    servers {
+        metrics
+    }
+    admin 0.0.0.0:2019
+}
+
 :80 {
     route / {
         reverse_proxy http://auth-api:4000 {
