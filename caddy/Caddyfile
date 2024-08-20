@@ -1,5 +1,25 @@
-localhost {
-    
+:80 {
+    route / {
+        reverse_proxy http://auth-api:4000 {
+            header_up Authorization {http.request.header.Authorization}
+
+           @success status 200
+           @error status 401 403
+
+            handle_response @success {
+                reverse_proxy http://example-api:4001
+            }
+
+            handle_response @error {
+                respond "Forbidden" 403
+            }
+        }
+    }
+}
+
+:443 {
+    tls /etc/caddy/certs/ssl.crt /etc/caddy/certs/ssl.key
+
     route / {
         reverse_proxy http://auth-api:4000 {
             header_up Authorization {http.request.header.Authorization}

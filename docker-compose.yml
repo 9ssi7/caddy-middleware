@@ -19,6 +19,8 @@ services:
       - "443:443"
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/ssl.key:/etc/caddy/certs/ssl.key
+      - ./caddy/ssl.crt:/etc/caddy/certs/ssl.crt
     networks:
       - gateway
     depends_on:
